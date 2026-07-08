@@ -107,8 +107,9 @@ def get_playlist_info(config: dict):
     if "list=" in url and "playlist?list=" not in url:
         try:
             playlist_id = get_url_parameter(url, "list")
-            parsed_url = urlparse(url)
-            url = f"{parsed_url.scheme}://{parsed_url.netloc}/playlist?list={playlist_id}"
+            if playlist_id and not playlist_id.startswith("RD"):
+                parsed_url = urlparse(url)
+                url = f"{parsed_url.scheme}://{parsed_url.netloc}/playlist?list={playlist_id}"
         except Exception:
             pass
 
